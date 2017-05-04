@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{cophenetic_correlation,dimRedResult-method}
-\alias{cophenetic_correlation}
 \alias{cophenetic_correlation,dimRedResult-method}
+\alias{cophenetic_correlation}
 \title{Method cophenetic_correlation}
 \usage{
 \S4method{cophenetic_correlation}{dimRedResult}(object, d = stats::dist,
@@ -30,7 +30,7 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
   \code{\link{quality,dimRedResult-method}},
+  \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-

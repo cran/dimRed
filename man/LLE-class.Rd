@@ -2,8 +2,8 @@
 % Please edit documentation in R/lle.R
 \docType{class}
 \name{LLE-class}
-\alias{LLE}
 \alias{LLE-class}
+\alias{LLE}
 \title{Locally Linear Embedding}
 \description{
 An S4 Class implementing Locally Linear Embedding (LLE)
@@ -19,8 +19,9 @@ manifold and in highdimensional space.
 \item{\code{fun}}{A function that does the embedding and returns a
 dimRedResult object.}
 
-\item{\code{stdpars}}{The standard parameters for the funciton.}
+\item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -46,6 +47,7 @@ LLE can take the following parameters:
 Wraps around \code{\link[lle]{lle}}, only
 exposes the parameters \code{k} and \code{m}.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve", n = 500)
 
@@ -77,4 +79,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

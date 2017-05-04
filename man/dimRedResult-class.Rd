@@ -2,16 +2,23 @@
 % Please edit documentation in R/dimRedResult-class.R
 \docType{class}
 \name{dimRedResult-class}
-\alias{as.data.frame,dimRedResult-method}
-\alias{dimRedResult}
 \alias{dimRedResult-class}
-\alias{getDimRedData,dimRedResult-method}
-\alias{getOrgData,dimRedResult-method}
+\alias{dimRedResult}
+\alias{predict,dimRedResult-method}
+\alias{inverse,dimRedResult-method}
+\alias{inverse}
+\alias{as.data.frame,dimRedResult-method}
 \alias{getPars,dimRedResult-method}
-\alias{ndims,dimRedResult-method}
 \alias{print,dimRedResult-method}
+\alias{getOrgData,dimRedResult-method}
+\alias{getDimRedData,dimRedResult-method}
+\alias{ndims,dimRedResult-method}
 \title{Class "dimRedResult"}
 \usage{
+\S4method{predict}{dimRedResult}(object, xnew)
+
+\S4method{inverse}{dimRedResult}(object, ynew)
+
 \S4method{as.data.frame}{dimRedResult}(x, org.data.prefix = "org.",
   meta.prefix = "meta.", data.prefix = "")
 
@@ -26,6 +33,12 @@
 \S4method{ndims}{dimRedResult}(object)
 }
 \arguments{
+\item{object}{Of class \code{dimRedResult}}
+
+\item{xnew}{new data, of type \code{\link{dimRedData}}}
+
+\item{ynew}{embedded data, of type \code{\link{dimRedData}}}
+
 \item{x}{Of class \code{dimRedResult}}
 
 \item{org.data.prefix}{Prefix for the columns of the org.data slot.}
@@ -33,14 +46,20 @@
 \item{meta.prefix}{Prefix for the columns of \code{x@data@meta}.}
 
 \item{data.prefix}{Prefix for the columns of \code{x@data@data}.}
-
-\item{object}{Of class \code{dimRedResult}}
 }
 \description{
 A class to hold the results of of a dimensionality reduction.
 }
 \section{Methods (by generic)}{
 \itemize{
+\item \code{predict}: apply a trained method to new data, does not work
+with all methods, will give an error if there is no \code{apply}.
+In some cases the apply function may only be an approximation.
+
+\item \code{inverse}: inverse transformation of embedded data, does not
+work with all methods, will give an error if there is no \code{inverse}.
+In some cases the apply function may only be an approximation.
+
 \item \code{as.data.frame}: convert to \code{data.frame}
 
 \item \code{getPars}: Get the parameters with which the method
@@ -54,6 +73,7 @@ was called.
 
 \item \code{ndims}: Extract the number of embedding dimensions.
 }}
+
 \section{Slots}{
 
 \describe{
@@ -77,6 +97,7 @@ reduced space, may not exist.}
 
 \item{\code{pars}}{saves the parameters used.}
 }}
+
 \examples{
 ## Create object by embedding data
 iris.pca <- embed(loadDataSet("Iris"), "PCA")
@@ -104,4 +125,3 @@ getOrgData(iris.pca)
 ndims(iris.pca)
 
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/kpca.R
 \docType{class}
 \name{kPCA-class}
-\alias{kPCA}
 \alias{kPCA-class}
+\alias{kPCA}
 \title{Kernel PCA}
 \description{
 An S4 Class implementing Kernel PCA
@@ -17,8 +17,9 @@ Kernel PCA is a nonlinear extension of PCA using kernel methods.
 \item{\code{fun}}{A function that does the embedding and returns a
 dimRedResult object.}
 
-\item{\code{stdpars}}{The standard parameters for the funciton.}
+\item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -48,6 +49,7 @@ Kernel PCA can take the following parameters:
 Wraps around \code{\link[kernlab]{kpca}}, but provides additionally
 forward and backward projections.
 }
+
 \examples{
 \dontrun{
 dat <- loadDataSet("3D S Curve")
@@ -73,4 +75,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{dimRedMethod-class}},
   \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
-
