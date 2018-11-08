@@ -26,7 +26,12 @@
 #'
 #' Wraps around \code{\link{prcomp}}. Because PCA can be reduced to a
 #' simple rotation, forward and backward projection functions are
-#' supplied. .
+#' supplied.
+#'
+#' @references
+#'
+#' Pearson, K., 1901. On lines and planes of closest fit to systems of points in
+#' space. Philosophical Magazine 2, 559-572.
 #'
 #' @examples
 #' dat <- loadDataSet("Iris")

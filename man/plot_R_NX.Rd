@@ -4,28 +4,35 @@
 \alias{plot_R_NX}
 \title{plot_R_NX}
 \usage{
-plot_R_NX(x)
+plot_R_NX(x, ndim = NA, weight = "inv")
 }
 \arguments{
-\item{x}{a list of \code{\link{dimRedResult}} objects. The names of
-the list will appear in the legend with the AUC_lnK value.}
+\item{x}{a list of \code{\link{dimRedResult}} objects. The names of the list
+will appear in the legend with the AUC_lnK value.}
+
+\item{ndim}{the number of dimensions, if \code{NA} the original number of
+embedding dimensions is used, can be a vector giving the embedding
+dimensionality for each single list element of \code{x}.}
+
+\item{weight}{the weight function used for K when calculating the AUC, one of
+\code{c("inv", "log", "log10")}}
 }
 \value{
 A ggplot object, the design can be changed by appending
-    \code{theme(...)}
+  \code{theme(...)}
 }
 \description{
 Plot the R_NX curve for different embeddings. Takes a list of
 \code{\link{dimRedResult}} objects as input.
-Also the Area under the curve values are computed for logarithmic K
-(AUC_lnK) and appear in the legend.
+Also the Area under the curve values are computed for a weighted K
+(see \link{AUC_lnK_R_NX} for details) and appear in the legend.
 }
 \examples{
 
 ## define which methods to apply
 embed_methods <- c("Isomap", "PCA")
 ## load test data set
-data_set <- loadDataSet("3D S Curve", n = 1000)
+data_set <- loadDataSet("3D S Curve", n = 200)
 ## apply dimensionality reduction
 data_emb <- lapply(embed_methods, function(x) embed(data_set, x))
 names(data_emb) <- embed_methods
@@ -36,3 +43,19 @@ plot_R_NX(data_emb) +
                    legend.justification = c(0.5, 0.1))
 
 }
+\seealso{
+Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
+  \code{\link{LCMC,dimRedResult-method}},
+  \code{\link{Q_NX,dimRedResult-method}},
+  \code{\link{Q_global,dimRedResult-method}},
+  \code{\link{Q_local,dimRedResult-method}},
+  \code{\link{R_NX,dimRedResult-method}},
+  \code{\link{cophenetic_correlation,dimRedResult-method}},
+  \code{\link{distance_correlation,dimRedResult-method}},
+  \code{\link{mean_R_NX,dimRedResult-method}},
+  \code{\link{quality,dimRedResult-method}},
+  \code{\link{reconstruction_error,dimRedResult-method}},
+  \code{\link{reconstruction_rmse,dimRedResult-method}},
+  \code{\link{total_correlation,dimRedResult-method}}
+}
+\concept{Quality scores for dimensionality reduction}

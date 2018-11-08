@@ -39,6 +39,8 @@ Isomap can take the following parameters:
 \describe{
   \item{knn}{The number of nearest neighbors in the graph. Defaults to 50.}
   \item{ndim}{The number of embedding dimensions, defaults to 2.}
+  \item{get_geod}{Should the geodesic distance matrix be kept,
+                  if \code{TRUE}, access it as \code{getOtherData(x)$geod}}
 }
 }
 
@@ -49,7 +51,7 @@ The dimRed package uses its own implementation of Isomap which also
 comes with an out of sample extension (known as landmark
 Isomap). The default Isomap algorithm scales computationally not
 very well, the implementation here uses \code{\link[RANN]{nn2}} for
-a faster search of the neares neighbors.  If data are too large it
+a faster search of the nearest neighbors.  If data are too large it
 may be useful to fit a subsample of the data and use the
 out-of-sample extension for the other points.
 }
@@ -63,22 +65,31 @@ emb <- isomap@fun(dat, isomap@stdpars)
 
 ## or simpler, use embed():
 samp <- sample(nrow(dat), size = 200)
-emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+emb2 <- embed(dat[samp], "Isomap", .mute = NULL, knn = 10)
 emb3 <- emb2@apply(dat[-samp])
 
 plot(emb2, type = "2vars")
 plot(emb3, type = "2vars")
 
 }
+\references{
+Tenenbaum, J.B., Silva, V. de, Langford, J.C., 2000. A Global Geometric
+Framework for Nonlinear Dimensionality Reduction. Science 290, 2319-2323.
+https://doi.org/10.1126/science.290.5500.2319
+}
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
+  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
+  \code{\link{UMAP-class}},
   \code{\link{dimRedMethod-class}},
-  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
-  \code{\link{tSNE-class}}
+  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
+\concept{dimensionality reduction methods}

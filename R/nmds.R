@@ -20,8 +20,13 @@
 #' \code{\link[vegan]{monoMDS}}. For parameters that are not
 #' available here, the standard configuration is used.
 #'
+#' @references
+#'
+#' Kruskal, J.B., 1964. Nonmetric multidimensional scaling: A numerical method.
+#' Psychometrika 29, 115-129. https://doi.org/10.1007/BF02289694
+#'
 #' @examples
-#' dat <- loadDataSet("3D S Curve", n = 1000)
+#' dat <- loadDataSet("3D S Curve", n = 300)
 #'
 #' ## using the S4 classes:
 #' nmds <- nMDS()

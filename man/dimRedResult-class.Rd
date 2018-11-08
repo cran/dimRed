@@ -9,10 +9,12 @@
 \alias{inverse}
 \alias{as.data.frame,dimRedResult-method}
 \alias{getPars,dimRedResult-method}
+\alias{getNDim,dimRedResult-method}
 \alias{print,dimRedResult-method}
 \alias{getOrgData,dimRedResult-method}
 \alias{getDimRedData,dimRedResult-method}
 \alias{ndims,dimRedResult-method}
+\alias{getOtherData,dimRedResult-method}
 \title{Class "dimRedResult"}
 \usage{
 \S4method{predict}{dimRedResult}(object, xnew)
@@ -24,6 +26,8 @@
 
 \S4method{getPars}{dimRedResult}(object)
 
+\S4method{getNDim}{dimRedResult}(object)
+
 \S4method{print}{dimRedResult}(x)
 
 \S4method{getOrgData}{dimRedResult}(object)
@@ -31,6 +35,8 @@
 \S4method{getDimRedData}{dimRedResult}(object)
 
 \S4method{ndims}{dimRedResult}(object)
+
+\S4method{getOtherData}{dimRedResult}(object)
 }
 \arguments{
 \item{object}{Of class \code{dimRedResult}}
@@ -65,6 +71,8 @@ In some cases the apply function may only be an approximation.
 \item \code{getPars}: Get the parameters with which the method
 was called.
 
+\item \code{getNDim}: Get the number of embedding dimensions.
+
 \item \code{print}: Method for printing.
 
 \item \code{getOrgData}: Get the original data and meta.data
@@ -72,6 +80,8 @@ was called.
 \item \code{getDimRedData}: Get the embedded data
 
 \item \code{ndims}: Extract the number of embedding dimensions.
+
+\item \code{getOtherData}: Get other data produced by the method
 }}
 
 \section{Slots}{
@@ -96,6 +106,8 @@ reduced space, may not exist.}
 \item{\code{method}}{saves the method used.}
 
 \item{\code{pars}}{saves the parameters used.}
+
+\item{\code{other.data}}{other data produced by the method, e.g. a distance matrix.}
 }}
 
 \examples{
@@ -125,3 +137,4 @@ getOrgData(iris.pca)
 ndims(iris.pca)
 
 }
+\concept{dimRedResult}

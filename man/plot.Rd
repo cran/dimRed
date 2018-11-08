@@ -13,7 +13,8 @@
 plot(x, y, ...)
 
 \S4method{plot}{dimRedData,ANY}(x, type = "pairs",
-  vars = seq_len(ncol(x@data)), col = seq_len(min(3, ncol(x@meta))), ...)
+  vars = seq_len(ncol(x@data)), col = seq_len(min(3, ncol(x@meta))),
+  ...)
 
 \S4method{plot}{dimRedResult,ANY}(x, type = "pairs",
   vars = seq_len(ncol(x@data@data)), col = seq_len(min(3,
@@ -27,7 +28,7 @@ embedded/loadDataSet}
 
 \item{...}{handed over to the underlying plotting function.}
 
-\item{type}{plot type, one of \code{c("pairs", "parallel", "2vars",
+\item{type}{plot type, one of \code{c("pairs", "parpl", "2vars",
 "3vars", "3varsrgl")}}
 
 \item{vars}{the axes of the embedding to use for plotting}

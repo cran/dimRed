@@ -1,5 +1,4 @@
 
-data(iris)
 context("PCA")
 
 test_that("general data conversions", {
@@ -15,6 +14,12 @@ test_that("general data conversions", {
     irisResS  <- do.call(function(...) embed(irisData, "PCA", ...), irisParsS)
     irisResC  <- do.call(function(...) embed(irisData, "PCA", ...), irisParsC)
     irisRes   <- do.call(function(...) embed(irisData, "PCA", ...), irisPars)
+
+    expect_equal(2, getNDim(irisResCS))
+    expect_equal(2, getNDim(irisResS))
+    expect_equal(2, getNDim(irisResC))
+    expect_equal(2, getNDim(irisRes))
+
     expect_equal(class(irisResCS)[1], "dimRedResult")
     expect_equal(class(irisResS)[1],  "dimRedResult")
     expect_equal(class(irisResC)[1],  "dimRedResult")

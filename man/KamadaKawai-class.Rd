@@ -57,7 +57,7 @@ graph which also may improve visualization quality.
 }
 
 \examples{
-dat <- loadDataSet("Swiss Roll", n = 500)
+dat <- loadDataSet("Swiss Roll", n = 200)
 kamada_kawai <- KamadaKawai()
 kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 
@@ -65,15 +65,23 @@ plot(kk@data@data)
 
 
 }
+\references{
+Kamada, T., Kawai, S., 1989. An algorithm for drawing general undirected
+graphs. Information Processing Letters 31, 7-15.
+https://doi.org/10.1016/0020-0190(89)90102-6
+}
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{LLE-class}}, \code{\link{MDS-class}},
-  \code{\link{PCA-class}},
+  \code{\link{NNMF-class}}, \code{\link{PCA-class}},
+  \code{\link{PCA_L1-class}}, \code{\link{UMAP-class}},
   \code{\link{dimRedMethod-class}},
-  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
-  \code{\link{tSNE-class}}
+  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
+\concept{dimensionality reduction methods}

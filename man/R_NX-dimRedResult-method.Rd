@@ -6,15 +6,17 @@
 \alias{R_NX}
 \title{Method R_NX}
 \usage{
-\S4method{R_NX}{dimRedResult}(object)
+\S4method{R_NX}{dimRedResult}(object, ndim = getNDim(object))
 }
 \arguments{
 \item{object}{of class dimRedResult}
+
+\item{ndim}{the number of dimensions to take from the embedded data.}
 }
 \description{
-Calculate the R_NX score from Lee et. al. (2013) which shows the
-neighborhood preservation for the Kth nearest neighbors,
-corrected for random point distributions and scaled to range [0, 1].
+Calculate the R_NX score from Lee et. al. (2013) which shows the neighborhood
+preservation for the Kth nearest neighbors, corrected for random point
+distributions and scaled to range [0, 1].
 }
 \seealso{
 Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
@@ -25,8 +27,10 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{cophenetic_correlation,dimRedResult-method}},
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
+  \code{\link{plot_R_NX}},
   \code{\link{quality,dimRedResult-method}},
   \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
+\concept{Quality scores for dimensionality reduction}

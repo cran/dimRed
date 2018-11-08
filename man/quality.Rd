@@ -87,7 +87,7 @@ of the reconstrucion. \code{object} requires an inverse function.
 \dontrun{
 embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
-scurve <- loadDataSet("3D S Curve", n = 500)
+scurve <- loadDataSet("Iris")
 
 quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
                               dimnames = list(embed_methods, quality_methods))
@@ -133,6 +133,7 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{cophenetic_correlation,dimRedResult-method}},
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
+  \code{\link{plot_R_NX}},
   \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
@@ -140,3 +141,4 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
 \author{
 Guido Kraemer
 }
+\concept{Quality scores for dimensionality reduction}

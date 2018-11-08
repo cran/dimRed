@@ -14,7 +14,9 @@
 
 \item{n}{a positive integer or vector of integers \code{<= ndims(object)}}
 
-\item{error_fun}{a function or string indicating an error function.}
+\item{error_fun}{a function or string indicating an error function, if
+indication a function it must take to matrices of the same size and return
+a scalar.}
 }
 \value{
 a vector of number with the same length as \code{n} with the
@@ -53,6 +55,7 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{cophenetic_correlation,dimRedResult-method}},
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
+  \code{\link{plot_R_NX}},
   \code{\link{quality,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
@@ -60,3 +63,4 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
 \author{
 Guido Kraemer
 }
+\concept{Quality scores for dimensionality reduction}

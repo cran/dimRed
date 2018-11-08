@@ -48,7 +48,7 @@ available here, the standard configuration is used.
 }
 
 \examples{
-dat <- loadDataSet("3D S Curve", n = 1000)
+dat <- loadDataSet("3D S Curve", n = 300)
 
 ## using the S4 classes:
 nmds <- nMDS()
@@ -63,14 +63,23 @@ plot(emb, type = "2vars")
 plot(emb2, type = "2vars")
 
 }
+\references{
+Kruskal, J.B., 1964. Nonmetric multidimensional scaling: A numerical method.
+Psychometrika 29, 115-129. https://doi.org/10.1007/BF02289694
+}
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
+  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
+  \code{\link{UMAP-class}},
   \code{\link{dimRedMethod-class}},
-  \code{\link{kPCA-class}}, \code{\link{tSNE-class}}
+  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
+  \code{\link{tSNE-class}}
 }
+\concept{dimensionality reduction methods}

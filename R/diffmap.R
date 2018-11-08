@@ -48,7 +48,7 @@
 #'     5-30. doi:10.1016/j.acha.2006.04.006
 #'
 #' @examples
-#' dat <- loadDataSet("3D S Curve")
+#' dat <- loadDataSet("3D S Curve", n = 300)
 #'
 #' ## use the S4 Class directly:
 #' diffmap <- DiffusionMaps()
@@ -63,7 +63,7 @@
 #' embsamp <- diffmap@fun(dat[samp], diffmap@stdpars)
 #' embother <- embsamp@apply(dat[-samp])
 #' plot(embsamp, type = "2vars")
-#' points(embother)
+#' points(embother@data)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -115,7 +115,8 @@ DiffusionMaps <- setClass(
             dimnames(appl.res) <- list(
                 rownames(x), paste0("diffMap", seq_len(ncol(outdata)))
             )
-            return(appl.res)
+
+            new("dimRedData", data = appl.res, meta = appl.meta)
         }
 
         colnames(outdata) <- paste0("diffMap", seq_len(ncol(outdata)))

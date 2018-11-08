@@ -1,5 +1,4 @@
 
-data(iris)
 context("FastICA")
 
 test_that("general data conversions", {
@@ -8,6 +7,8 @@ test_that("general data conversions", {
 
     irisRes <- embed(irisData, "FastICA")
     expect_equal(class(irisRes)[1],   "dimRedResult")
+
+    expect_equal(2, getNDim(irisRes))
 
     expect_equal(irisRes@apply(irisData), irisRes@data)
 

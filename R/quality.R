@@ -81,7 +81,7 @@ setGeneric("quality",
 #' \dontrun{
 #' embed_methods <- dimRedMethodList()
 #' quality_methods <- dimRedQualityList()
-#' scurve <- loadDataSet("3D S Curve", n = 500)
+#' scurve <- loadDataSet("Iris")
 #'
 #' quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
 #'                               dimnames = list(embed_methods, quality_methods))
@@ -170,18 +170,20 @@ setGeneric(
 #'
 #' Calculate the Q_local score to assess the quality of a dimensionality reduction.
 #'
-#' @param object of class dimRedResult
+#' @param object of class dimRedResult.
+#' @param ndim use the first ndim columns of the embedded data for calculation.
 #' @family Quality scores for dimensionality reduction
 #' @aliases Q_local
 #' @export
 setMethod(
     "Q_local",
     "dimRedResult",
-    function (object) {
+    function (object, ndim = getNDim(object)) {
         if (!object@has.org.data) stop("object requires original data")
         chckpkg("coRanking")
 
-        Q <- coRanking::coranking(object@org.data, object@data@data)
+        Q <- coRanking::coranking(object@org.data,
+                                  object@data@data[, seq_len(ndim), drop = FALSE])
         nQ <- nrow(Q)
         N <- nQ + 1
 
@@ -191,7 +193,7 @@ setMethod(
         Kmax <- which.max(lcmc)
 
         Qlocal <- sum(lcmc[1:Kmax]) / Kmax
-        return(Qlocal)
+        return(as.vector(Qlocal))
     }
 )
 
@@ -261,35 +263,55 @@ setGeneric(
 
 #' Method AUC_lnK_R_NX
 #'
-#' Calculate the Area under the R_NX(ln K), used in Lee et. al. (2013).
+#' Calculate the Area under the R_NX(ln K), used in Lee et. al. (2015). Note
+#' that despite the name, this does not weight the mean by the logarithm, but by
+#' 1/K. If explicit weighting by the logarithm is desired use \code{weight =
+#' "log"} or \code{weight = "log10"}
 #'
-#' @references
+#' The naming confusion originated from equation 17 in Lee et al (2015) and the
+#' name of this method may change in the future to avoid confusion.
 #'
-#' Lee, J.A., Renard, E., Bernard, G., Dupont, P., Verleysen, M.,
-#' 2013. Type 1 and 2 mixtures of Kullback-Leibler divergences as cost
-#' functions in dimensionality reduction based on similarity
-#' preservation. Neurocomputing. 112,
-#' 92-107. doi:10.1016/j.neucom.2012.12.036
+#' @references Lee, J.A., Peluffo-Ordonez, D.H., Verleysen, M., 2015.
+#'   Multi-scale similarities in stochastic neighbour embedding: Reducing
+#'   dimensionality while preserving both local and global structure.
+#'   Neurocomputing 169, 246-261. https://doi.org/10.1016/j.neucom.2014.12.095
 #'
 #' @param object of class dimRedResult
+#' @param weight the weight function used, one of \code{c("inv", "log", "log10")}
 #' @family Quality scores for dimensionality reduction
 #' @aliases AUC_lnK_R_NX
 #' @export
 setMethod(
     "AUC_lnK_R_NX",
     "dimRedResult",
-    function(object) {
+    function(object, weight = "inv") {
         rnx <- R_NX(object)
-        auc_lnK(rnx)
+
+        weight <- match.arg(weight, c("inv", "ln", "log", "log10"))
+        switch(
+          weight,
+          inv   = auc_ln_k_inv(rnx),
+          log   = auc_log_k(rnx),
+          ln    = auc_log_k(rnx),
+          log10 = auc_log10_k(rnx),
+          stop("wrong parameter for weight")
+        )
     }
 )
 
-auc_lnK <- function(rnx) {
+auc_ln_k_inv <- function(rnx) {
     Ks <- seq_along(rnx)
     return (sum(rnx / Ks) / sum(1 / Ks))
-    ## in my intuition it should be the folowing:
-    ## N <- length(rnx)
-    ## sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
+}
+
+auc_log_k <- function(rnx) {
+    Ks <- seq_along(rnx)
+    return (sum(rnx * log(Ks)) / sum(log(Ks)))
+}
+
+auc_log10_k <- function(rnx) {
+  Ks <- seq_along(rnx)
+  return (sum(rnx * log10(Ks)) / sum(log10(Ks)))
 }
 
 
@@ -450,7 +472,7 @@ setMethod(
 
         recon <- object@inverse(object@data)
 
-        sqrt(mean((recon@data - object@org.data) ^ 2))
+        rmse(recon@data, object@org.data)
     }
 )
 
@@ -471,27 +493,30 @@ dimRedQualityList <- function () {
 #' @export
 setGeneric(
     "R_NX",
-    function(object) standardGeneric("R_NX"),
+    function(object, ...) standardGeneric("R_NX"),
     valueClass = "numeric"
 )
 
 #' Method R_NX
 #'
-#' Calculate the R_NX score from Lee et. al. (2013) which shows the
-#' neighborhood preservation for the Kth nearest neighbors,
-#' corrected for random point distributions and scaled to range [0, 1].
+#' Calculate the R_NX score from Lee et. al. (2013) which shows the neighborhood
+#' preservation for the Kth nearest neighbors, corrected for random point
+#' distributions and scaled to range [0, 1].
 #' @param object of class dimRedResult
+#' @param ndim the number of dimensions to take from the embedded data.
 #' @family Quality scores for dimensionality reduction
 #' @aliases R_NX
 #' @export
 setMethod(
     "R_NX",
     "dimRedResult",
-    function(object) {
+    function(object, ndim = getNDim(object)) {
         chckpkg("coRanking")
         if (!object@has.org.data) stop("object requires original data")
 
-        Q <- coRanking::coranking(object@org.data, object@data@data)
+        Q <- coRanking::coranking(object@org.data,
+                                  object@data@data[, seq_len(ndim),
+                                                   drop = FALSE])
         nQ <- nrow(Q)
         N <- nQ + 1
 
@@ -594,7 +619,9 @@ setGeneric(
 #'
 #' @param object of class dimRedResult
 #' @param n a positive integer or vector of integers \code{<= ndims(object)}
-#' @param error_fun a function or string indicating an error function.
+#' @param error_fun a function or string indicating an error function, if
+#'   indication a function it must take to matrices of the same size and return
+#'   a scalar.
 #' @return a vector of number with the same length as \code{n} with the
 #'
 #' @examples
@@ -624,7 +651,7 @@ setMethod(
     if (any(n > ndims(object))) stop("n > ndims(object)")
     if (any(n < 1))             stop("n < 1")
 
-    if (inherits(error_fun, "character")) {
+    ef <- if (inherits(error_fun, "character")) {
       switch(
         error_fun,
         rmse = rmse,
@@ -638,11 +665,11 @@ setMethod(
 
     res <- numeric(length(n))
     org <- getData(getOrgData(object))
-    for (i in n) {
+    for (i in seq_along(n)) {
       rec <- getData(inverse(
-       object , getData(getDimRedData(object))[, seq_len(i), drop = FALSE]
+        object, getData(getDimRedData(object))[, seq_len(n[i]), drop = FALSE]
       ))
-      res[i] <- sqrt(mean((org - rec) ^ 2))
+      res[i] <- ef(org, rec)
     }
     res
   }

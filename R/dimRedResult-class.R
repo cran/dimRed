@@ -17,6 +17,7 @@ NULL
 #' @slot has.inverse logical if an inverse method exists.
 #' @slot method saves the method used.
 #' @slot pars saves the parameters used.
+#' @slot other.data other data produced by the method, e.g. a distance matrix.
 #'
 #' @examples
 #' ## Create object by embedding data
@@ -55,7 +56,8 @@ dimRedResult <- setClass(
         has.apply    = "logical",
         has.inverse  = "logical",
         method       = "character",
-        pars         = "list"
+        pars         = "list",
+        other.data   = "list"
     ),
     prototype = list(
         data         = new("dimRedData"),
@@ -66,7 +68,8 @@ dimRedResult <- setClass(
         has.apply    = FALSE,
         has.inverse  = FALSE,
         method       = "",
-        pars         = list()
+        pars         = list(),
+        other.data   = list()
     )
 )
 
@@ -168,6 +171,16 @@ setMethod(
     }
 )
 
+#' @describeIn dimRedResult Get the number of embedding dimensions.
+#' @export
+setMethod(
+    f = "getNDim",
+    signature = "dimRedResult",
+    definition = function (object) {
+        result <- getPars(object)$ndim
+        if(is.null(result)) dim(object@data@data)[2] else result
+    }
+)
 
 #' @describeIn dimRedResult Method for printing.
 #' @import utils
@@ -216,4 +229,12 @@ setMethod(
     "ndims",
     "dimRedResult",
     function(object) ncol(object@data@data)
+)
+
+#' @describeIn dimRedResult Get other data produced by the method
+#' @export
+setMethod(
+    f = "getOtherData",
+    signature = "dimRedResult",
+    definition = function(object) object@other.data
 )

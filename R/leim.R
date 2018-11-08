@@ -32,6 +32,7 @@
 #' Wraps around \code{\link[loe]{spec.emb}}.
 #'
 #' @references
+#' 
 #' Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for
 #' Dimensionality Reduction and Data Representation. Neural
 #' Computation 15, 1373.
@@ -54,7 +55,7 @@ LaplacianEigenmaps <- setClass(
     contains = "dimRedMethod",
     prototype = list(
         stdpars = list(ndim = 2, sparse = "knn", knn = 50, eps = 0.1,
-                       t = Inf, norm = T),
+                       t = Inf, norm = TRUE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg("loe")

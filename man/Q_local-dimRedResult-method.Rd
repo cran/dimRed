@@ -6,10 +6,12 @@
 \alias{Q_local}
 \title{Method Q_local}
 \usage{
-\S4method{Q_local}{dimRedResult}(object)
+\S4method{Q_local}{dimRedResult}(object, ndim = getNDim(object))
 }
 \arguments{
-\item{object}{of class dimRedResult}
+\item{object}{of class dimRedResult.}
+
+\item{ndim}{use the first ndim columns of the embedded data for calculation.}
 }
 \description{
 Calculate the Q_local score to assess the quality of a dimensionality reduction.
@@ -23,8 +25,10 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{cophenetic_correlation,dimRedResult-method}},
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
+  \code{\link{plot_R_NX}},
   \code{\link{quality,dimRedResult-method}},
   \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
+\concept{Quality scores for dimensionality reduction}

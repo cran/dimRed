@@ -16,7 +16,7 @@
 #' @param x dimRedResult/dimRedData class, e.g. output of
 #'     embedded/loadDataSet
 #' @param y Ignored
-#' @param type plot type, one of \code{c("pairs", "parallel", "2vars",
+#' @param type plot type, one of \code{c("pairs", "parpl", "2vars",
 #'     "3vars", "3varsrgl")}
 #' @param col the columns of the meta slot to use for coloring, can be
 #'     referenced as the column names or number of x@data
@@ -98,20 +98,26 @@ setMethod(
 #'
 #' Plot the R_NX curve for different embeddings. Takes a list of
 #' \code{\link{dimRedResult}} objects as input.
-#' Also the Area under the curve values are computed for logarithmic K
-#' (AUC_lnK) and appear in the legend.
+#' Also the Area under the curve values are computed for a weighted K
+#' (see \link{AUC_lnK_R_NX} for details) and appear in the legend.
 #'
-#' @param x a list of \code{\link{dimRedResult}} objects. The names of
-#'     the list will appear in the legend with the AUC_lnK value.
+#' @param x a list of \code{\link{dimRedResult}} objects. The names of the list
+#'   will appear in the legend with the AUC_lnK value.
+#' @param ndim the number of dimensions, if \code{NA} the original number of
+#'   embedding dimensions is used, can be a vector giving the embedding
+#'   dimensionality for each single list element of \code{x}.
+#' @param weight the weight function used for K when calculating the AUC, one of
+#'   \code{c("inv", "log", "log10")}
+#' @family Quality scores for dimensionality reduction
 #' @return A ggplot object, the design can be changed by appending
-#'     \code{theme(...)}
+#'   \code{theme(...)}
 #'
 #' @examples
 #' 
 #' ## define which methods to apply
 #' embed_methods <- c("Isomap", "PCA")
 #' ## load test data set
-#' data_set <- loadDataSet("3D S Curve", n = 1000)
+#' data_set <- loadDataSet("3D S Curve", n = 200)
 #' ## apply dimensionality reduction
 #' data_emb <- lapply(embed_methods, function(x) embed(data_set, x))
 #' names(data_emb) <- embed_methods
@@ -120,9 +126,9 @@ setMethod(
 #'     ggplot2::theme(legend.title = ggplot2::element_blank(),
 #'                    legend.position = c(0.5, 0.1),
 #'                    legend.justification = c(0.5, 0.1))
-#' 
+#'
 #' @export
-plot_R_NX <- function(x) {
+plot_R_NX <- function(x, ndim = NA, weight = "inv") {
     chckpkg("ggplot2")
     chckpkg("tidyr")
     chckpkg("scales")
@@ -133,11 +139,22 @@ plot_R_NX <- function(x) {
             stop("x must be a list and ",
                  "all items must inherit from 'dimRedResult'")
     )
-    rnx <- lapply(x, R_NX)
-    auc <- sapply(rnx, auc_lnK)
+
+    rnx <- mapply(function(x, ndim) if(is.na(ndim)) R_NX(x) else R_NX(x, ndim),
+                  x = x, ndim = ndim)
+
+    weight <- match.arg(weight, c("inv", "ln", "log", "log10"))
+    w_fun <- switch(
+      weight,
+      inv   = auc_ln_k_inv,
+      log   = auc_log_k,
+      ln    = auc_log_k,
+      log10 = auc_log10_k,
+      stop("wrong parameter for weight")
+    )
+    auc <- apply(rnx, 2, w_fun)
 
     df <- as.data.frame(rnx)
-    names(df) <- names(x)
     df$K <- seq_len(nrow(df))
 
     qnxgrid <- expand.grid(K = df$K,
@@ -178,5 +195,12 @@ plot_R_NX <- function(x) {
                      breaks = names(x),
                      labels = paste(format(auc, digits = 3),
                                     names(x))) +
+        ggplot2::labs(title = paste0(
+                        "R_NX vs. K",
+                        if (length(ndim) == 1 && !is.na(ndim))
+                          paste0(", d = ", ndim)
+                        else
+                          ""
+                      )) +
         ggplot2::theme_classic()
 }
