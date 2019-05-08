@@ -34,6 +34,7 @@
 #' 2016 IEEE 16th International Conference On. IEEE, pp. 430-438.
 #'
 #' @examples
+#' if(requireNamespace("pcaL1", quietly = TRUE)) {
 #' dat <- loadDataSet("Iris")
 #'
 #' ## using the S4 Class
@@ -45,7 +46,8 @@
 #'
 #' plot(emb, type = "2vars")
 #' plot(emb@inverse(emb@data), type = "3vars")
-#'
+#' }
+#' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -112,7 +114,7 @@ PCA_L1 <- setClass(
         ## evaluate results here for functions
         data <- res$scores
         colnames(data) <- paste0("PC", seq_len(ndim))
-        rot <- res$loadings[, seq_len(ndim)]
+        rot <- res$loadings[, seq_len(ndim), drop = FALSE]
         dimnames(rot) <- list(orgnames, newnames)
         rerot <- t(rot)
 
