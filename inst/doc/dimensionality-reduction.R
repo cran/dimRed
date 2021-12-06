@@ -1,4 +1,4 @@
-## ----"pca_isomap_example",include=FALSE,fig.width=4,fig.height=4---------
+## ----"pca_isomap_example",include=FALSE,fig.width=4,fig.height=4--------------
 if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 library(dimRed); library(ggplot2); #library(dplyr); library(tidyr)
 ## define which methods to apply
@@ -42,7 +42,7 @@ hist(1:10)
 plot(1:10)
 }
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  ## define which methods to apply
 #  embed_methods <- c("Isomap", "PCA")
 #  ## load test data set
@@ -57,7 +57,7 @@ plot(1:10)
 #  ## figure \ref{fig:plotexample}c, quality analysis
 #  plot_R_NX(data_emb)
 
-## ----include=FALSE-------------------------------------------------------
+## ----include=FALSE------------------------------------------------------------
 if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 library(dimRed)
 library(cccd)
@@ -83,7 +83,7 @@ add_label <- function(label){
 names(qual) <- kk
 }
 
-## ----"select_k",include=FALSE,fig.width=11,fig.height=5------------------
+## ----"select_k",include=FALSE,fig.width=11,fig.height=5-----------------------
 if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 par(mfrow = c(1, 2),
     mar = c(5, 4, 0, 0) + 0.1,
@@ -98,7 +98,7 @@ plot(1:10)
 plot(1:10)
 }
 
-## ----"knngraphs",include=FALSE,fig.width=8,fig.height=3------------------
+## ----"knngraphs",include=FALSE,fig.width=8,fig.height=3-----------------------
 if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 par(mfrow = c(1, 3),
     mar = c(5, 4, 0, 0) + 0.1,
@@ -133,7 +133,7 @@ plot(1:10)
 plot(1:10)
 }
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  ## Load data
 #  ss <- loadDataSet("3D S Curve", n = 500)
 #  ## Parameter space
@@ -146,7 +146,7 @@ plot(1:10)
 #  ind_max <- which.max(qual)
 #  k_max <- kk[ind_max]
 
-## ----"plot_quality",include=FALSE----------------------------------------
+## ----"plot_quality",include=FALSE---------------------------------------------
 if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 embed_methods <- dimRedMethodList()
 quality_methods <- c("Q_local", "Q_global", "AUC_lnK_R_NX",
@@ -179,7 +179,7 @@ barplot(t(quality_results), beside = TRUE, col = 1:4,
 plot(1:10)
 }
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  embed_methods <- dimRedMethodList()
 #  quality_methods <- c("Q_local", "Q_global", "AUC_lnK_R_NX",
 #                       "cophenetic_correlation")

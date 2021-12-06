@@ -55,7 +55,10 @@ translated for \code{\link[umap]{umap}}.
 
 The dimRed package wraps the \code{\link[umap]{umap}} packages which provides
 an implementation in pure R and also a wrapper around the original python
-package \code{umap-learn} (https://github.com/lmcinnes/umap/)
+package \code{umap-learn} (https://github.com/lmcinnes/umap/). This requires
+\code{umap-learn} version 0.4 installed, at the time of writing, there is
+already \code{umap-learn} 0.5 but it is not supported by the R package
+\code{\link[umap]{umap}}.
 
 The \code{"naive"} implementation is a pure R implementation and considered
 experimental at the point of writing this, it is also much slower than the
@@ -70,14 +73,8 @@ package for the interaction with python and the python package
 \examples{
 \dontrun{
 dat <- loadDataSet("3D S Curve", n = 300)
-
-## use the S4 Class directly:
-umap <- UMAP()
-emb <- umap@fun(dat, umap@stdpars)
-
-## or simpler, use embed():
-emb2 <- embed(dat, "UMAP", .mute = NULL, knn = 10)
-plot(emb2, type = "2vars")
+emb <- embed(dat, "UMAP", .mute = NULL, knn = 10)
+plot(emb, type = "2vars")
 }
 
 }
@@ -87,17 +84,25 @@ McInnes, Leland, and John Healy.
 https://arxiv.org/abs/1802.03426
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

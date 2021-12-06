@@ -57,16 +57,10 @@ functions are supplied.
 \examples{
 if(requireNamespace("pcaL1", quietly = TRUE)) {
 dat <- loadDataSet("Iris")
-
-## using the S4 Class
-pca_l1 <- PCA_L1()
-emb <- pca_l1@fun(dat, pca_l1@stdpars)
-
-## using embed()
-emb2 <- embed(dat, "PCA_L1")
+emb <- embed(dat, "PCA_L1")
 
 plot(emb, type = "2vars")
-plot(emb@inverse(emb@data), type = "3vars")
+plot(inverse(emb, getData(getDimRedData((emb)))), type = "3vars")
 }
 
 }
@@ -76,17 +70,25 @@ Algorithms for L1-Norm Principal Component Analysis, in: Data Mining (ICDM),
 2016 IEEE 16th International Conference On. IEEE, pp. 430-438.
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

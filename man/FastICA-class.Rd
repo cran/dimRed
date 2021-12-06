@@ -51,16 +51,8 @@ rotation/projection, forward and backward functions can be given.
 
 \examples{
 dat <- loadDataSet("3D S Curve")
-
-## use the S4 Class directly:
-fastica <- FastICA()
-emb <- fastica@fun(dat, pars = list(ndim = 2))
-
-## simpler, use embed():
-emb2 <- embed(dat, "FastICA", ndim = 2)
-
-
-plot(emb@data@data)
+emb <- embed(dat, "FastICA", ndim = 2)
+plot(getData(getDimRedData(emb)))
 
 }
 \references{
@@ -69,18 +61,25 @@ component analysis. IEEE Transactions on Neural Networks 10, 626-634.
 https://doi.org/10.1109/72.761722
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
-  \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

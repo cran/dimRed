@@ -58,14 +58,7 @@ forward and backward projections.
 \examples{
 \dontrun{
 dat <- loadDataSet("3D S Curve")
-
-## use the S4 class directly:
-kpca <- kPCA()
-emb <- kpca@fun(dat, kpca@stdpars)
-
-## simpler, use embed():
-emb2 <- embed(dat, "kPCA")
-
+emb <- embed(dat, "kPCA")
 plot(emb, type = "2vars")
 }
 }
@@ -75,18 +68,25 @@ as a Kernel Eigenvalue Problem. Neural Computation 10, 1299-1319.
 https://doi.org/10.1162/089976698300017467
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
-  \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{nMDS-class}},
-  \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

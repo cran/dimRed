@@ -50,16 +50,8 @@ exposes the parameters \code{k} and \code{m}.
 
 \examples{
 dat <- loadDataSet("3D S Curve", n = 500)
-
-## directy use the S4 class:
-lle <- LLE()
-emb <- lle@fun(dat, lle@stdpars)
-
-## using embed():
-emb2 <- embed(dat, "LLE", knn = 45)
-
+emb <- embed(dat, "LLE", knn = 45)
 plot(emb, type = "2vars")
-plot(emb2, type = "2vars")
 
 }
 \references{
@@ -68,17 +60,25 @@ by Locally Linear Embedding. Science 290,
 2323-2326. doi:10.1126/science.290.5500.2323
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{MDS-class}},
-  \code{\link{NNMF-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}}, \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

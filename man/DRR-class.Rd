@@ -87,19 +87,14 @@ global maximum, I have not ran tests on the accuracy of this method.
 \dontrun{
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 
-## use the S4 Class directly:
-drr <- DRR()
-pars <- drr@stdpars
-pars$ndim <- 3
-emb <- drr@fun(dat, pars)
-
-## simpler, use embed():
-emb2 <- embed(dat, "DRR", ndim = 3)
-
+emb <- embed(dat, "DRR", ndim = 3)
 
 plot(dat, type = "3vars")
 plot(emb, type = "3vars")
-plot(emb@inverse(emb@data@data[, 1, drop = FALSE]), type = "3vars")
+
+# We even have function to reconstruct, also working for only the first few dimensions
+rec <- inverse(emb, getData(getDimRedData(emb))[, 1, drop = FALSE])
+plot(rec, type = "3vars")
 }
 
 
@@ -111,17 +106,25 @@ Laparra, V., Malo, J., Camps-Valls, G.,
     9, 1026-1036. doi:10.1109/JSTSP.2015.2417833
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
-  \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

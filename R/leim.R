@@ -13,12 +13,12 @@
 #' \code{LaplacianEigenmaps} can take the following parameters:
 #' \describe{
 #'   \item{ndim}{the number of output dimensions.}
-#' 
+#'
 #'   \item{sparse}{A character vector specifying hot to make the graph
 #'    sparse, \code{"knn"} means that a K-nearest neighbor graph is
 #'    constructed, \code{"eps"} an epsilon neighborhood graph is
 #'    constructed, else a dense distance matrix is used.}
-#' 
+#'
 #'   \item{knn}{The number of nearest neighbors to use for the knn graph.}
 #'   \item{eps}{The distance for the epsilon neighborhood graph.}
 #'
@@ -32,19 +32,15 @@
 #' Wraps around \code{\link[loe]{spec.emb}}.
 #'
 #' @references
-#' 
+#'
 #' Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for
 #' Dimensionality Reduction and Data Representation. Neural
 #' Computation 15, 1373.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' leim <- LaplacianEigenmaps()
-#' emb <- leim@fun(dat, leim@stdpars)
-#'
-#'
+#' emb <- embed(dat, "LaplacianEigenmaps")
 #' plot(emb@data@data)
-#'
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -78,16 +74,11 @@ LaplacianEigenmaps <- setClass(
                  knng <- makeKNNgraph(indata, k = pars$knn, eps = 0,
                                       diag = TRUE)
                  if (is.infinite(pars$t)){
-                     igraph::set_edge_attr(knng, name = "weight", value = 1)
+                     knng <- igraph::set_edge_attr(knng, name = "weight", value = 1)
                  } else {
-                     igraph::set_edge_attr(
-                                 knng, name = "weight",
-                                 value = exp( -(
-                                     igraph::edge_attr(
-                                                 knng, name = "weight"
-                                             ) ^ 2
-                                 ) / pars$t )
-                             )
+                   ea <- igraph::edge_attr(knng, name = "weight")
+                   knng <- igraph::set_edge_attr(
+                     knng, name = "weight", value = exp( -(ea ^ 2) / pars$t ))
                  }
                  igraph::as_adj(knng, sparse = TRUE,
                                 attr = "weight", type = "both")
@@ -132,7 +123,12 @@ LaplacianEigenmaps <- setClass(
         ## smallest, which should be approx 0:
         outdata <- outdata$vectors[, order(outdata$values)[-1],
                                    drop = FALSE]
-        colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
+
+        if(ncol(outdata) > 0) {
+          colnames(outdata) <- paste0("LEIM", seq_len(ncol(outdata)))
+        } else {
+          warning("no dimensions left, this is probably due to a badly conditioned eigenvalue decomposition.")
+        }
 
         message(Sys.time(), ": DONE")
         return(new(

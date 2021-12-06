@@ -59,19 +59,15 @@ Wraps around \code{\link[NMF]{nmf}}. Note that the estimation uses random
 }
 
 \examples{
-dat <- loadDataSet("Iris")
-
 set.seed(4646)
-factorization <- embed(dat, "NNMF")
+dat <- loadDataSet("Iris")
+emb <- embed(dat, "NNMF")
 
-proj_dat <- factorization@apply(dat)
-
-plot(proj_dat@data[, 1], proj_dat@data[, 2])
+plot(emb)
 
 # project new values:
-
-nn_proj <- predict(factorization, iris[1:7, 1:4])
-nn_proj
+nn_proj <- predict(emb, dat[1:7])
+plot(nn_proj)
 
 }
 \references{
@@ -79,17 +75,25 @@ Lee, D.D., Seung, H.S., 1999. Learning the parts of objects by non-negative
 matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}}, \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

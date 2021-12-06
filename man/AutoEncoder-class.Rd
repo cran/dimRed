@@ -123,35 +123,39 @@ Uses \pkg{tensorflow} as a backend, for details an
 \dontrun{
 dat <- loadDataSet("3D S Curve")
 
-## use the S4 Class directly:
-autoenc <- AutoEncoder()
-emb <- autoenc@fun(dat, autoenc@stdpars)
+emb <- embed(dat, "AutoEncoder")
 
-## simpler, use embed():
-emb2 <- embed(dat, "AutoEncoder")
+# predicting is possible:
+samp <- sample(floor(nrow(dat) / 10))
+emb2 <- embed(dat[samp])
+emb3 <- predict(emb2, dat[-samp])
 
 plot(emb, type = "2vars")
-
-samp <- sample(floor(nrow(dat) / 10))
-embsamp <- autoenc@fun(dat[samp], autoenc@stdpars)
-embother <- embsamp@apply(dat[-samp])
-plot(embsamp, type = "2vars")
-points(embother@data)
+plot(emb2, type = "2vars")
+points(getData(emb3))
 }
 
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
-  \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

@@ -58,15 +58,13 @@ out-of-sample extension for the other points.
 
 \examples{
 dat <- loadDataSet("3D S Curve", n = 500)
-
-## use the S4 Class directly:
-isomap <- Isomap()
-emb <- isomap@fun(dat, isomap@stdpars)
+emb <- embed(dat, "Isomap", knn = 10)
+plot(emb)
 
 ## or simpler, use embed():
 samp <- sample(nrow(dat), size = 200)
 emb2 <- embed(dat[samp], "Isomap", .mute = NULL, knn = 10)
-emb3 <- emb2@apply(dat[-samp])
+emb3 <- predict(emb2, dat[-samp])
 
 plot(emb2, type = "2vars")
 plot(emb3, type = "2vars")
@@ -78,18 +76,25 @@ Framework for Nonlinear Dimensionality Reduction. Science 290, 2319-2323.
 https://doi.org/10.1126/science.290.5500.2319
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
-  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
-  \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{MDS-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}

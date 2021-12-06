@@ -31,17 +31,17 @@
 #' @examples
 #' \dontrun{
 #' dat <- loadDataSet("3D S Curve")
-#'
-#' ## Use the S4 Class directly:
-#' mds <- MDS()
-#' emb <- mds@fun(dat, mds@stdpars)
-#'
-#' ## use embed():
-#' emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
-#'
-#'
+#' emb <- embed(dat, "MDS")
 #' plot(emb, type = "2vars")
+#'
+#' # a "manual" kPCA:
+#' emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
 #' plot(emb2, type = "2vars")
+#'
+#' # a "manual", more customizable, and slower Isomap:
+#' emb3 <- embed(dat, "MDS", d = function(x) vegan::isomapdist(vegan::vegdist(x, "manhattan"), k = 20))
+#' plot(emb3)
+#'
 #' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
