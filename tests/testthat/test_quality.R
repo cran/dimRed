@@ -1,7 +1,3 @@
-
-
-context("quality")
-
 test_that("quality", {
 
     irisData <- loadDataSet("Iris")
@@ -28,8 +24,26 @@ test_that("Q_local ndim", {
     irisData <- loadDataSet("Iris")
     irisData <- irisData[!duplicated(irisData@data)]
 
-    parsPCA <- list(center = TRUE, scale. = TRUE, ndim = 4)
+    parsPCA <- list(center = TRUE, scale. = FALSE, ndim = 4)
     resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
+
+    getData(getDimRedData(resPCA)) - prcomp(iris[!duplicated(iris[1:4]), 1:4], scale. = TRUE)$x
+
+        Q <- coRanking::coranking(
+          resPCA@org.data,
+          resPCA@data@data[, seq_len(4), drop = FALSE]
+        )
+        nQ <- nrow(Q)
+        N <- nQ + 1
+
+        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / seq_len(nQ) / N
+        lcmc <- Qnx - seq_len(nQ) / nQ
+
+        Kmax <- which.max(lcmc)
+
+        Qlocal <- sum(Qnx[1:Kmax]) / Kmax
+        as.vector(Qlocal)
+
 
     tmp <- sapply(1:4, function(x) quality(resPCA, "Q_local", ndim = x))
     expect_equal(rank(tmp), 1:4)
