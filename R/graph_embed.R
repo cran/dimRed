@@ -36,10 +36,13 @@
 #' https://doi.org/10.1016/0020-0190(89)90102-6
 #'
 #' @examples
+#' if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
+#'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "KamadaKawai")
 #' plot(emb, type = "2vars")
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -81,7 +84,8 @@ KamadaKawai <- setClass(
             method       = "graph_kk",
             pars         = pars
         ))
-    })
+        },
+      requires = c("igraph", "coRanking"))
 )
 
 
@@ -118,9 +122,13 @@ KamadaKawai <- setClass(
 #'
 #' @examples
 #' \dontrun{
+#' if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
+#'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "DrL")
 #' plot(emb, type = "2vars")
+#' }
+#'
 #' }
 #'
 #' @include dimRedResult-class.R
@@ -164,7 +172,9 @@ DrL <- setClass(
             method       = "graph_drl",
             pars         = pars
         ))
-    })
+        },
+        requires = c("igraph", "coRanking")
+    )
 )
 
 #' Fruchterman Reingold Graph Layout
@@ -195,9 +205,13 @@ DrL <- setClass(
 #' https://doi.org/10.1002/spe.4380211102
 #'
 #' @examples
+#' if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
+#'
 #' dat <- loadDataSet("Swiss Roll", n = 100)
 #' emb <- embed(dat, "FruchtermanReingold")
 #' plot(emb, type = "2vars")
+#'
+#' }
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -240,7 +254,9 @@ FruchtermanReingold <- setClass(
             method       = "graph_fr",
             pars         = pars
         ))
-    })
+        },
+        requires = c("igraph", "coRanking")
+    )
 )
 
 em_graph_layout <- function(data, graph_em_method,

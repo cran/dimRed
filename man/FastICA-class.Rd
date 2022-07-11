@@ -50,10 +50,13 @@ rotation/projection, forward and backward functions can be given.
 }
 
 \examples{
+if(requireNamespace("fastICA", quietly = TRUE)) {
+
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "FastICA", ndim = 2)
 plot(getData(getDimRedData(emb)))
 
+}
 }
 \references{
 Hyvarinen, A., 1999. Fast and robust fixed-point algorithms for independent
@@ -70,7 +73,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

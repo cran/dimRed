@@ -48,9 +48,13 @@ Own implementation, sticks to the algorithm in Donoho and Grimes
 }
 
 \examples{
+if(requireNamespace(c("RSpectra", "Matrix", "RANN"), quietly = TRUE)) {
+
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "HLLE", knn = 15)
 plot(emb, type = "2vars")
+
+}
 
 }
 \references{
@@ -68,7 +72,6 @@ Other dimensionality reduction methods:
 \code{\link{FruchtermanReingold-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

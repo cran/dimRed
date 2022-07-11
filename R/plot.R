@@ -25,10 +25,16 @@
 #'
 #' @examples
 #' scurve = loadDataSet("3D S Curve")
-#' plot(scurve, type = "pairs", main = "pairs plot of S curve")
-#' plot(scurve, type = "parpl")
-#' plot(scurve, type = "2vars", vars = c("y", "z"))
-#' plot(scurve, type = "3vars")
+#' if(requireNamespace("graphics", quietly = TRUE))
+#'   plot(scurve, type = "pairs", main = "pairs plot of S curve")
+#' if(requireNamespace("MASS", quietly = TRUE))
+#'   plot(scurve, type = "parpl")
+#' if(requireNamespace("graphics", quietly = TRUE))
+#'   plot(scurve, type = "2vars", vars = c("y", "z"))
+#' if(requireNamespace("scatterplot3d", quietly = TRUE))
+#'   plot(scurve, type = "3vars")
+#' if(requireNamespace("rgl", quietly = TRUE))
+#'   plot(scurve, type = "3varsrgl")
 #'
 #' @include mixColorSpaces.R
 #' @include dimRedData-class.R
@@ -113,7 +119,7 @@ setMethod(
 #'   \code{theme(...)}
 #'
 #' @examples
-#' 
+#' if(requireNamespace(c("RSpectra", "igraph", "RANN", "ggplot", "tidyr", "scales"), quietly = TRUE)) {
 #' ## define which methods to apply
 #' embed_methods <- c("Isomap", "PCA")
 #' ## load test data set
@@ -126,7 +132,7 @@ setMethod(
 #'     ggplot2::theme(legend.title = ggplot2::element_blank(),
 #'                    legend.position = c(0.5, 0.1),
 #'                    legend.justification = c(0.5, 0.1))
-#'
+#' }
 #' @export
 plot_R_NX <- function(x, ndim = NA, weight = "inv") {
     chckpkg("ggplot2")

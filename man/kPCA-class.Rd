@@ -57,9 +57,13 @@ forward and backward projections.
 
 \examples{
 \dontrun{
+if(requireNamespace("kernlab", quietly = TRUE)) {
+
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "kPCA")
 plot(emb, type = "2vars")
+}
+
 }
 }
 \references{
@@ -78,7 +82,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

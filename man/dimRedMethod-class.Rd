@@ -31,8 +31,12 @@ This way the method can be called by \code{embed(data, "method-name",
 \describe{
 \item{\code{fun}}{A function that does the embedding.}
 
-\item{\code{stdpars}}{A list with the default parameters for the \code{fun}
-slot.}
+\item{\code{stdpars}}{A list with the default parameters for the \code{fun} slot.}
+
+\item{\code{requires}}{A vector with all packages R packages that need to be
+installed to run the method. In some occasions a method may work without
+one of the packages. Does not include Python dependencies such as
+Tensorflow. Used to auto skip tests}
 }}
 
 \seealso{
@@ -46,7 +50,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

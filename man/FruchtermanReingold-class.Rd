@@ -46,9 +46,13 @@ a circle and puts connected points close to each other.
 }
 
 \examples{
+if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
+
 dat <- loadDataSet("Swiss Roll", n = 100)
 emb <- embed(dat, "FruchtermanReingold")
 plot(emb, type = "2vars")
+
+}
 
 }
 \references{
@@ -66,7 +70,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

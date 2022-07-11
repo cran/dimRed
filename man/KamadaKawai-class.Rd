@@ -57,10 +57,13 @@ graph which also may improve visualization quality.
 }
 
 \examples{
+if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
+
 dat <- loadDataSet("Swiss Roll", n = 200)
 emb <- embed(dat, "KamadaKawai")
 plot(emb, type = "2vars")
 
+}
 }
 \references{
 Kamada, T., Kawai, S., 1989. An algorithm for drawing general undirected
@@ -77,7 +80,6 @@ Other dimensionality reduction methods:
 \code{\link{FruchtermanReingold-class}},
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

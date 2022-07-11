@@ -5,51 +5,53 @@ test_that("quality", {
     parsPCA <- list(center = TRUE, scale. = TRUE)
     resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
 
-    suppressWarnings(
-        resQual <- list(
-            Q_local(resPCA),
-            Q_global(resPCA),
-            mean_R_NX(resPCA),
-            total_correlation(resPCA),
-            cophenetic_correlation(resPCA),
-            distance_correlation(resPCA),
-            reconstruction_rmse(resPCA)
-        )
-    )
+    if(requireNamespace("coRanking", quietly = TRUE))
+      expect_true(is.numeric(Q_local(resPCA)))
+    if(requireNamespace("coRanking", quietly = TRUE))
+      expect_true(is.numeric(Q_global(resPCA)))
+    if(requireNamespace("coRanking", quietly = TRUE))
+      expect_true(is.numeric(mean_R_NX(resPCA)))
+    if(requireNamespace("optimx", quietly = TRUE))
+      expect_true(is.numeric(total_correlation(resPCA)))
+    expect_true(is.numeric(cophenetic_correlation(resPCA)))
+    if (requireNamespace("energy", quietly = TRUE))
+      expect_true(is.numeric(distance_correlation(resPCA)))
+    expect_true(is.numeric(reconstruction_rmse(resPCA)))
 
-    lapply(resQual, function(x) expect_true(is.numeric(x)))
+    ## suppressWarnings(
+    ##     resQual <- list(
+    ##         Q_local(resPCA),
+    ##         Q_global(resPCA),
+    ##         mean_R_NX(resPCA),
+    ##         total_correlation(resPCA),
+    ##         cophenetic_correlation(resPCA),
+    ##         distance_correlation(resPCA),
+    ##         reconstruction_rmse(resPCA)
+    ##     )
+    ## )
+
+    ## lapply(resQual, function(x) expect_true(is.numeric(x)))
 })
 
 test_that("Q_local ndim", {
-    irisData <- loadDataSet("Iris")
-    irisData <- irisData[!duplicated(irisData@data)]
+  if(!requireNamespace("coRanking", quietly = TRUE)) {
+    skip("coRanking not available")
+  }
 
-    parsPCA <- list(center = TRUE, scale. = FALSE, ndim = 4)
-    resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
+  irisData <- loadDataSet("Iris")
+  irisData <- irisData[!duplicated(irisData@data)]
 
-    getData(getDimRedData(resPCA)) - prcomp(iris[!duplicated(iris[1:4]), 1:4], scale. = TRUE)$x
+  parsPCA <- list(center = TRUE, scale. = FALSE, ndim = 4)
+  resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
 
-        Q <- coRanking::coranking(
-          resPCA@org.data,
-          resPCA@data@data[, seq_len(4), drop = FALSE]
-        )
-        nQ <- nrow(Q)
-        N <- nQ + 1
-
-        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / seq_len(nQ) / N
-        lcmc <- Qnx - seq_len(nQ) / nQ
-
-        Kmax <- which.max(lcmc)
-
-        Qlocal <- sum(Qnx[1:Kmax]) / Kmax
-        as.vector(Qlocal)
-
-
-    tmp <- sapply(1:4, function(x) quality(resPCA, "Q_local", ndim = x))
-    expect_equal(rank(tmp), 1:4)
+  tmp <- sapply(1:4, function(x) quality(resPCA, "Q_local", ndim = x))
+  expect_equal(rank(tmp), 1:4)
 })
 
 test_that("rmse_by_ndim", {
+  if(!requireNamespace("DRR", quietly = TRUE)) {
+    skip("DRR not available")
+  }
 
   set.seed(1)
 
@@ -76,6 +78,9 @@ test_that("rmse_by_ndim", {
 })
 
 test_that("AUC_lnK_R_NX", {
+  if(!requireNamespace("coRanking", quietly = TRUE)) {
+    skip("coRanking not available")
+  }
 
   irisData <- loadDataSet("Iris")
   irisData <- irisData[!duplicated(irisData@data)]

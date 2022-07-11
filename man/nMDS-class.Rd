@@ -48,10 +48,13 @@ available here, the standard configuration is used.
 }
 
 \examples{
+if(requireNamespace("vegan", quietly = TRUE)) {
+
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "nMDS")
 plot(emb, type = "2vars")
 
+}
 }
 \references{
 Kruskal, J.B., 1964. Nonmetric multidimensional scaling: A numerical method.
@@ -68,7 +71,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

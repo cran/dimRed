@@ -60,7 +60,8 @@ dat <- loadDataSet("Iris")
 emb <- embed(dat, "PCA")
 
 plot(emb, type = "2vars")
-plot(inverse(emb, getDimRedData(emb)), type = "3vars")
+if(requireNamespace("scatterplot3d", quietly = TRUE))
+  plot(inverse(emb, getDimRedData(emb)), type = "3vars")
 
 }
 \references{
@@ -78,7 +79,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA_L1-class}},

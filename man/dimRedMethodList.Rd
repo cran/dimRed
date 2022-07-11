@@ -4,7 +4,10 @@
 \alias{dimRedMethodList}
 \title{dimRedMethodList}
 \usage{
-dimRedMethodList()
+dimRedMethodList(filter = FALSE)
+}
+\arguments{
+\item{filter}{filter methods by methods that have their dependencies installed}
 }
 \value{
 a character vector with the names of classes that inherit
@@ -32,7 +35,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

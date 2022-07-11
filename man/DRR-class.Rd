@@ -85,6 +85,8 @@ global maximum, I have not ran tests on the accuracy of this method.
 
 \examples{
 \dontrun{
+if(requireNamespace(c("kernlab", "DRR"), quietly = TRUE)) {
+
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 
 emb <- embed(dat, "DRR", ndim = 3)
@@ -97,6 +99,7 @@ rec <- inverse(emb, getData(getDimRedData(emb))[, 1, drop = FALSE])
 plot(rec, type = "3vars")
 }
 
+}
 
 }
 \references{
@@ -115,7 +118,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

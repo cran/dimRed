@@ -53,9 +53,13 @@ graph which also may improve visualization quality.
 
 \examples{
 \dontrun{
+if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
+
 dat <- loadDataSet("Swiss Roll", n = 200)
 emb <- embed(dat, "DrL")
 plot(emb, type = "2vars")
+}
+
 }
 
 }
@@ -73,7 +77,6 @@ Other dimensionality reduction methods:
 \code{\link{HLLE-class}},
 \code{\link{Isomap-class}},
 \code{\link{KamadaKawai-class}},
-\code{\link{LLE-class}},
 \code{\link{MDS-class}},
 \code{\link{NNMF-class}},
 \code{\link{PCA-class}},

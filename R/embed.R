@@ -159,3 +159,4 @@ getMethodObject <- function (method) {
     method <- match.arg(method, dimRedMethodList())
     do.call(method, list())
 }
+

@@ -1,22 +1,24 @@
 skip_if_no_tensorflow <- function() {
-  if (!reticulate::py_module_available("tensorflow") &&
-      Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1")
+  if (!requireNamespace(c("tensorflow", "reticulate"), quietly = TRUE) ||
+        (!reticulate::py_module_available("tensorflow") &&
+         Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1"))
     skip("TensorFlow not available for testing")
 }
 skip_if_no_keras <- function() {
-  if (!keras::is_keras_available() &&
-      Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1")
+  if (!requireNamespace(c("keras", "reticulate"), quietly = TRUE) ||
+        (!keras::is_keras_available() &&
+           Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1"))
     skip("Keras not available for testing")
 }
 
 test_that("Check if tensorflow is installed correctly.", {
   skip_if_no_tensorflow()
-  library(tensorflow)
+  requireNamespace("tensorflow", quietly = TRUE)
   tensorflow::tf$compat$v1$disable_v2_behavior()
   # I have not found a way to suppress the warning tf gives on first use.
-  sess <- tf$compat$v1$Session()
+  sess <- tensorflow::tf$compat$v1$Session()
   hello <- "Hello, TensorFlow!"
-  tf_hello <- tf$compat$v1$constant(hello)
+  tf_hello <- tensorflow::tf$compat$v1$constant(hello)
   tf_hello_res <- sess$run(tf_hello)
 
   # in python 3 this returns a `bytes` object $decode() transforms it into a

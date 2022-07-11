@@ -38,10 +38,13 @@
 #' Computation 15, 1373.
 #'
 #' @examples
+#' if(requireNamespace(c("loe", "RSpectra", "Matrix"), quietly = TRUE)) {
+#'
 #' dat <- loadDataSet("3D S Curve")
 #' emb <- embed(dat, "LaplacianEigenmaps")
 #' plot(emb@data@data)
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export LaplacianEigenmaps
@@ -141,5 +144,6 @@ LaplacianEigenmaps <- setClass(
             method       = "leim",
             pars         = pars
         ))
-    })
+        },
+        requires = c("loe", "RSpectra", "Matrix"))
 )
