@@ -50,7 +50,7 @@
 #' \code{kernel.pars}, using less parameter values will speed up
 #' computation time. Calculation of KRR can be accelerated by
 #' increasing \code{fastkrr.nblocks}, it should be smaller than
-#' n^{1/3} up to sacrificing some accuracy, for details see
+#' \eqn{n^{1/3}} up to sacrificing some accuracy, for details see
 #' \code{\link[DRR]{constructFastKRRLearner}}. Another way to speed up
 #' is to use \code{pars$fastcv = TRUE} which might provide a more
 #' efficient way to search the parameter space but may also miss the
@@ -111,10 +111,13 @@ DRR <- setClass(
 
 
         meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
+        orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
         indata <- data@data
 
-        res <- do.call(DRR::drr, c(list(X = indata), pars))
+        # CVST from DRR complains about non-positive definite matrices
+        suppressWarnings(
+            res <- do.call(DRR::drr, c(list(X = indata), pars))
+        )
 
         outdata <- res$fitted.data
         colnames(outdata) <- paste0("DRR", 1:ncol(outdata))
